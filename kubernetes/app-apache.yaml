@@ -52,16 +52,18 @@ kind: Ingress
 metadata:
   name: apache-ingress
   namespace: test-apache
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /
+          - path: /app2
             pathType: Prefix
             backend:
               service:
                 name: apache-service
                 port:
                   number: 80
-              
+         
