@@ -40,6 +40,33 @@ spec:
         - name: web-content-volume
           persistentVolumeClaim:
             claimName: web-content-pvc
+    affinity:
+        #nodeAffinity: # affinite par noeud
+        #  requiredDuringSchedulingIgnoredDuringExecution:
+        #    nodeSelectorTerms:
+        #    - matchExpressions:
+        #      - key: xxxkeyxxxx
+        #        operator: In
+        #        values:
+        #        - xxxxxxx
+        #podAffinity: # affiniite par pod
+        #  requiredDuringSchedulingIgnoredDuringExecution:
+        #  - labelSelector:
+        #      matchExpressions:
+        #      - key: app
+        #        operator: In
+        #        values:
+        #        - mysql-db-polo
+        #    topologyKey: kubernetes.io/hostname
+        #podAntiAffinity: # affiniite anti-pod
+        #  requiredDuringSchedulingIgnoredDuringExecution:
+        #  - labelSelector:
+        #      matchExpressions:
+        #      - key: app
+        #        operator: In
+        #        values:
+        #        - mysql-db-polo
+        #    topologyKey: kubernetes.io/hostname
 ---
 apiVersion: v1
 kind: Service
