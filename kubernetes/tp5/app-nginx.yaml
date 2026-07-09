@@ -25,6 +25,9 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
+        volumeMounts:
+            - name: web-content-volume
+              mountPath: /usr/share/nginx/html
         resources:
           requests:
             cpu: "100m"
@@ -32,6 +35,10 @@ spec:
           limits:
             cpu: "250m"
             memory: "256Mi"
+      volumes:
+        - name: web-content-volume
+          persistentVolumeClaim:
+            claimName: web-content-pvc
 ---
 apiVersion: v1
 kind: Service
