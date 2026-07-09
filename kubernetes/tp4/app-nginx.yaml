@@ -32,6 +32,7 @@ spec:
           limits:
             cpu: "250m"
             memory: "256Mi"
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -56,13 +57,19 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - http:
-        paths:
-          - path: /app1
-            pathType: Prefix
-            backend:
-              service:
-                name:  nginx-service
-                port:
-                  number: 80
-  
+  - http:
+      paths:
+      - path: /app1
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 80
