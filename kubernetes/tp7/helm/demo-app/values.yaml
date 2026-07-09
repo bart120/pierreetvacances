@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  # A remplacer par l'URL de votre image GitLab Registry.
+  # Exemple : registry.gitlab.com/mon-groupe/aks-day3-live-demo/demo-app
+  repository: registry.gitlab.com/mon-groupe/aks-day3-live-demo/demo-app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+# Si le registry GitLab est privé, créer un secret Kubernetes et le déclarer ici :
+# imagePullSecrets:
+#   - name: gitlab-registry-secret
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  path: /demo
+  pathType: Prefix
+
+resources: {}
+# Exemple :
+# resources:
+#   requests:
+#     cpu: 50m
+#     memory: 64Mi
+#   limits:
+#     cpu: 200m
+#     memory: 128Mi

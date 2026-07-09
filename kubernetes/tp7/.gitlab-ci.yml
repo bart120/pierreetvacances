@@ -1,0 +1,26 @@
+stages:
+  - build
+
+variables:
+  IMAGE_NAME: "$CI_REGISTRY_IMAGE/demo-app"
+  IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
+
+build-image:
+  stage: build
+  image: docker:27
+  services:
+    - name: docker:27-dind
+      alias: docker
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - echo "Connexion au registry GitLab"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - echo "Build de l'image $IMAGE_NAME:$IMAGE_TAG"
+    - docker build -t "$IMAGE_NAME:$IMAGE_TAG" ./app
+    - docker tag "$IMAGE_NAME:$IMAGE_TAG" "$IMAGE_NAME:latest"
+    - docker push "$IMAGE_NAME:$IMAGE_TAG"
+    - docker push "$IMAGE_NAME:latest"
+  rules:
+    - if: '$CI_COMMIT_BRANCH'
