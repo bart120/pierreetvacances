@@ -5,3 +5,12 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 helm repo update
 
 helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -n monitoring
+
+
+LOADBALANCER
+helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -n monitoring --set grafana.service.type=LoadBalancer
+
+INGRESS
+helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create-namespace --set grafana.ingress.enabled=true --set grafana.ingress.ingressClassName=nginx  --set grafana.ingress.hosts[0]=9.235.98.50.nip.io --set grafana.ingress.path=/grafana --set grafana.ingress.pathType=Prefix --set grafana."grafana\.ini".server.root_url="http://9.235.98.50.nip.io/grafana" --set grafana."grafana\.ini".server.serve_from_sub_path=true
+
+helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create-namespace --set grafana.ingress.enabled=true --set grafana.ingress.ingressClassName=nginx --set grafana.ingress.hosts[0]=grafana.9.235.98.50.nip.io
