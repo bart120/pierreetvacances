@@ -29,6 +29,11 @@ kubectl get svc -n demo-helm
 kubectl get ingress -n demo-helm
 ```
 
+## 3.bis. Déployer manuellement avec Helm et fichier values
+```bash
+helm upgrade --install demo-app-dev ./helm/demo-app -n demo-dev  --create-namespace  -f ./helm/demo-app/values-dev.yaml
+```
+
 ## 4. Installer Argo CD
 
 ```bash
